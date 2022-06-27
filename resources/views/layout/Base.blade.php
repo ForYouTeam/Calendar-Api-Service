@@ -12,7 +12,8 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-    {{-- <link rel="icon" href="{{ asset('assets/images/fevicon.png') }}" type="image/png" /> --}}
+    {{--
+    <link rel="icon" href="{{ asset('assets/images/fevicon.png') }}" type="image/png" /> --}}
 
     <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
 
@@ -67,7 +68,7 @@
                     </div>
                 </div>
                 <div class="sidebar_blog_2">
-                    <h4>General</h4>
+                    <h4>Dashboard</h4>
                     @include('layout.Sidebar')
                 </div>
             </nav>
@@ -111,8 +112,8 @@
     <script>
         var ps = new PerfectScrollbar('#sidebar');
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
-        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     @yield('script')
 </body>

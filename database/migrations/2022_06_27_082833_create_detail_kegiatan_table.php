@@ -15,6 +15,9 @@ class CreateDetailKegiatanTable extends Migration
             $table->string('pakaian');
             $table->string('penyelenggara');
             $table->string('pejabat_menghadiri');
+            $table->string('protokol');
+            $table->string('kopim');
+            $table->string('dokpim');
             $table->timestamps();
         });
     }
