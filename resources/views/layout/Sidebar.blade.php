@@ -1,20 +1,76 @@
-<ul class="list-unstyled components">
-    <li class="active">
-        <a href="#dashboard" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
-                class="fa fa-dashboard yellow_color"></i> <span>Master Data</span></a>
-        <ul class="collapse list-unstyled" id="dashboard">
-            <li>
-                <a href="dashboard.html"><i class="fa fa-users blue_color"></i> <span>Data Staff</span></a>
-            </li>
-            <li>
-                <a href="dashboard_2.html"><i class="fa fa-calendar-o blue_color"></i> <span>Data Detail
-                        Kegiatan</span></a>
-            </li>
-            <li>
-                <a href="dashboard_2.html"><i class="fa fa-gears blue_color"></i> <span>Data Calendar Service</span></a>
-            </li>
-        </ul>
+<ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link" href="index.html">
+            <i class="icon-box menu-icon"></i>
+            <span class="menu-title">Dashboard</span>
+        </a>
     </li>
-    <li><a href="widgets.html"><i class="fa fa-calendar green_color"></i> <span>Data Kegiatan</span></a>
-    <li><a href="widgets.html"><i class="fa fa-folder-open-o purple_color"></i> <span>Data Arsip</span></a>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false"
+            aria-controls="ui-basic">
+            <i class="icon-disc menu-icon"></i>
+            <span class="menu-title">UI Elements</span>
+            <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="ui-basic">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link"
+                        href="pages/ui-features/buttons.html">Buttons</a></li>
+                <li class="nav-item"> <a class="nav-link"
+                        href="pages/ui-features/typography.html">Typography</a></li>
+            </ul>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="pages/forms/basic_elements.html">
+            <i class="icon-file menu-icon"></i>
+            <span class="menu-title">Form elements</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="pages/charts/chartjs.html">
+            <i class="icon-pie-graph menu-icon"></i>
+            <span class="menu-title">Charts</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="pages/tables/basic-table.html">
+            <i class="icon-command menu-icon"></i>
+            <span class="menu-title">Tables</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="pages/icons/feather-icons.html">
+            <i class="icon-help menu-icon"></i>
+            <span class="menu-title">Icons</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false"
+            aria-controls="auth">
+            <i class="icon-head menu-icon"></i>
+            <span class="menu-title">User Pages</span>
+            <i class="menu-arrow"></i>
+        </a>
+        <div class="collapse" id="auth">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login.html"> Login </a>
+                </li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/login-2.html"> Login 2
+                    </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register.html"> Register
+                    </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/register-2.html"> Register
+                        2 </a></li>
+                <li class="nav-item"> <a class="nav-link" href="pages/samples/lock-screen.html">
+                        Lockscreen </a></li>
+            </ul>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="docs/documentation.html">
+            <i class="icon-book menu-icon"></i>
+            <span class="menu-title">Documentation</span>
+        </a>
+    </li>
 </ul>
