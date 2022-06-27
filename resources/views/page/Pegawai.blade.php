@@ -40,7 +40,12 @@
                                     <td>{{$d->bagian}}</td>
                                     <td>{{$d->jk}}</td>
                                     <td>
-
+                                        <button type="button" data-id="{{ $d->id }}" id="btnEdit"
+                                            class="btn btn-success">
+                                            <i class="mdi mdi-pencil"></i></button>
+                                        <button type="button" data-id="{{ $d->id }}" id="btnHapus"
+                                            class="btn btn-danger">
+                                            <i class="mdi mdi-delete"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -53,6 +58,7 @@
                         <div class="card-body col-md-8 m-auto">
                             <h2 class="card-title">Input Data Pegawai</h2>
                             <form class="forms-sample" id="formSimpan">
+                                @csrf
                                 <div class="form-group row">
                                     <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
                                     <div class="col-sm-9">
@@ -153,6 +159,146 @@
                     }
                 }
             });
+        });
+
+        $(document).on('click', '#btnEdit', function() {
+            let dataId = $(this).data('id');
+            let url = `{{ config('app.url') }}` + "/pegawai/" + dataId;
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(result) {
+                    let data = result.data;
+                    $('#modal-univ').modal('show');
+                    $('.modal-title').html('Perubahan Data');
+                    $('#form-univ').html('');
+                    $('#form-univ').append(`
+                    <div class="form-group row">
+                        <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="pegawai_id" name="id" value="`+data.id+`">
+                            <input type="text" class="form-control" id="nama" name="nama" value="`+data.nama+`">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="nip" class="col-sm-3 col-form-label">NIP</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="nip" name="nip" value="`+data.nip+`">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="jabatan" class="col-sm-3 col-form-label">Jabatan</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="jabatan" name="jabatan" value="`+data.jabatan+`">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="bagian" class="col-sm-3 col-form-label">Bagian</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="bagian" name="bagian" value="`+data.bagian+`">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="jkEdit" name="jk">
+                                <option selected disabled>Pilih</option>
+                                <option value="pria">Pria</option>
+                                <option value="wanita">Wanita</option>
+                            </select>
+                            <p class="text-danger miniAlert text-capitalize" id="alert-jk"></p>
+                        </div>
+                    </div>
+                `);
+                    $('#jkEdit').val(data.jk);
+                },
+                error: function(result) {
+                    let data = result.responseJSON
+                    Swal.fire({
+                        icon: data.response.icon,
+                        title: data.response.title,
+                        text: data.response.message,
+                    });
+                }
+
+            });
+        });
+
+        $('#btnUpdate').on('click', function() {
+            let dataId = $('#pegawai_id').val();
+            let url = `{{ config('app.url') }}` + "/pegawai/" + dataId;
+            let data = $('#form-univ').serialize();
+            let modalClose = () => {
+                $('#modal-univ').modal('hide');
+            }
+            $.ajax({
+                url: url,
+                method: "patch",
+                data: data,
+                success: function(result) {
+                    modalClose();
+                    Swal.fire({
+                        title: result.response.title,
+                        text: result.response.message,
+                        icon: result.response.icon,
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oke'
+                    }).then((result) => {
+                        location.reload();
+                    });
+                },
+                error: function(result) {
+                    let data = result.responseJSON
+                    modalClose();
+                    Swal.fire({
+                        icon: data.response.icon,
+                        title: data.response.title,
+                        text: data.response.message,
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '#btnHapus', function() {
+            let dataId = $(this).data('id');
+            let url = `{{ config('app.url') }}` + "/pegawai/" + dataId;
+            Swal.fire({
+                title: 'Anda Yakin?',
+                text: "Data ini mungkin terhubung ke tabel yang lain!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Hapus'
+            }).then((res) => {
+                if (res.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: 'delete',
+                        success: function(result) {
+                            let data = result.data;
+                            Swal.fire({
+                                title: result.response.title,
+                                text: result.response.message,
+                                icon: result.response.icon,
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Oke'
+                            }).then((result) => {
+                                location.reload();
+                            });
+                        },
+                        error: function(result) {
+                            let data = result.responseJSON
+                            Swal.fire({
+                                icon: data.response.icon,
+                                title: data.response.title,
+                                text: data.response.message,
+                            });
+                        }
+                    });
+                }
+            })
         });
     })
 </script>
