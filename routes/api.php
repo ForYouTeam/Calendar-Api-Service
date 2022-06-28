@@ -10,4 +10,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/setEvent', [SetEventController::class, 'setEvent']);
-Route::delete('/deleteEvent/{id}', [SetEventController::class, 'deleteEvent']);
+Route::delete('/deleteEvent/{id}/{sendUpdate}', [SetEventController::class, 'deleteEvent']);
