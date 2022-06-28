@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\cms\DetailKegiatanController;
+use App\Http\Controllers\cms\KegiatanController;
 use App\Http\Controllers\cms\PegawaiController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,4 +33,11 @@ Route::prefix('detail_kegiatan')->group(function () {
     Route::get('/{id}', [DetailKegiatanController::class, 'getDetailById']);
     Route::patch('/{id}', [DetailKegiatanController::class, 'updateDetail']);
     Route::delete('/{id}', [DetailKegiatanController::class, 'deleteDetail']);
+});
+Route::prefix('kegiatan')->group(function () {
+    Route::get('/', [KegiatanController::class, 'getAllKegiatan'])->name('kegiatan.all');
+    Route::post('/', [KegiatanController::class, 'createKegiatan']);
+    Route::get('/{id}', [KegiatanController::class, 'getKegiatanById']);
+    Route::patch('/{id}', [KegiatanController::class, 'updateKegiatan']);
+    Route::delete('/{id}', [KegiatanController::class, 'deleteKegiatan']);
 });

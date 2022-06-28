@@ -11,9 +11,8 @@ class CreateKegiatanTable extends Migration
         Schema::create('kegiatan', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kegiatan_id')->constrained('detail_kegiatan');
-            $table->date('tgl');
+            $table->dateTime('tgl');
             $table->string('kegiatan');
-            $table->dateTime('waktu');
             $table->string('keterangan');
             $table->timestamps();
         });

@@ -14,11 +14,10 @@ class KegiatanModel extends Model
         'kegiatan_id',
         'tgl',
         'kegiatan',
-        'waktu',
         'keterangan',
     ];
 
     function kegiatanRole (){
-        $this->belongsTo(KegiatanModel::class, 'kegiatan_id');
+       return $this->belongsTo(DetailKegiatanModel::class, 'kegiatan_id');
     }
 }

@@ -19,7 +19,6 @@ class KegiatanRequest extends FormRequest
             'kegiatan_id' => 'required',
             'tgl' => 'required',
             'kegiatan' => 'required',
-            'waktu' => 'required',
             'keterangan' => 'required',
         ];
     }
