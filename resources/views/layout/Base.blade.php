@@ -2,119 +2,104 @@
 <html lang="en">
 
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
-
-    <title>Pluto - Responsive Bootstrap Admin Panel Templates</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    {{--
-    <link rel="icon" href="{{ asset('assets/images/fevicon.png') }}" type="image/png" /> --}}
-
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('assets/style.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('assets/css/responsive.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-select.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('assets/css/perfect-scrollbar.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
-
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-    <style>
-        #bottom-me {
-            position: relative;
-            min-height: 150px;
-        }
-
-        #bottom-me-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Regal Admin</title>
+    <link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/feather/feather.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/base/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendors/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-bar-rating/fontawesome-stars-o.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-bar-rating/fontawesome-stars.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.18/dist/sweetalert2.css"
+        integrity="sha256-AAqx1xXi9Bf0sAjL1wva6EMJ2z+rtAeSNSRRqVpN8cw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
 </head>
 
-<body class="dashboard dashboard_1">
-    <div class="full_container">
-        <div class="inner_container">
-            <!-- Sidebar  -->
-            <nav id="sidebar">
-                <div class="sidebar_blog_1">
-                    <div class="sidebar-header">
-                        <div class="logo_section">
-                            <a href="index.html"><img class="logo_icon img-responsive"
-                                    src="{{ asset('assets/images/logo/logo_icon.png') }}" alt="#" /></a>
-                        </div>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        @include('layout.Topbar')
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <div class="user-profile">
+                    <div class="user-image">
+                        <img src="{{ asset('assets/images/faces/face28.png') }}">
                     </div>
-                    <div class="sidebar_user_info">
-                        <div class="icon_setting"></div>
-                        <div class="user_profle_side">
-                            <div class="user_img"><img class="img-responsive"
-                                    src="{{ asset('assets/images/layout_img/user_img.jpg') }}" alt="#" /></div>
-                            <div class="user_info">
-                                <h6>John David</h6>
-                                <p><span class="online_animation"></span> Online</p>
-                            </div>
-                        </div>
+                    <div class="user-name">
+                        Edward Spencer
+                    </div>
+                    <div class="user-designation">
+                        Developer
                     </div>
                 </div>
-                <div class="sidebar_blog_2">
-                    <h4>Dashboard</h4>
-                    @include('layout.Sidebar')
-                </div>
+                @include('layout.Sidebar')
             </nav>
-            <!-- end sidebar -->
-            <!-- right content -->
-            <div id="content">
-                <!-- topbar -->
-                @include('layout.Topbar')
-                <!-- end topbar -->
-                <!-- dashboard inner -->
-                <div class="midde_cont">
-                    <div class="container-fluid">
-                        <div class="row column_title">
-                            <div class="col-md-12">
-                                <div class="page_title">
-                                    <h2>Dashboard</h2>
-                                </div>
-                            </div>
-                        </div>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
                         @yield('content')
                     </div>
-                    <div class="container-fluid" id="bottom-me">
-                        <div class="footer" id="bottom-me-content">
-                            <p>Copyright © 2018 Designed by html.design. All rights reserved.</p>
+                </div>
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright ©
+                            bootstrapdash.com 2020</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a
+                                href="https://www.bootstrapdash.com/" target="_blank">Bootstrap dashboard templates</a>
+                            from Bootstrapdash.com</span>
+                    </div>
+                    <span class="text-muted d-block text-center text-sm-left d-sm-inline-block mt-2">Distributed By: <a
+                            href="https://www.themewagon.com/" target="_blank">ThemeWagon</a></span>
+                </footer>
+                <div class="modal fade" id="modal-univ">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modal Heading</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <div class="modal-body">
+                                <form id="form-univ" action="" enctype="multipart/form-data">
+                                    @csrf
+                                </form>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" id="btnUpdate" class="btn btn-primary">Proses</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-                <!-- end dashboard inner -->
             </div>
         </div>
     </div>
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/base/vendor.bundle.base.js') }}"></script>
+    <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
+    <script src="{{ asset('assets/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ asset('assets/js/template.js') }}"></script>
+    <script src="{{ asset('assets/vendors/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/jquery-bar-rating/jquery.barrating.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.18/dist/sweetalert2.js"
+        integrity="sha256-5fTxrI0C59yjHqwVoE/140DZIq/FVIm+f634AN9a/W8=" crossorigin="anonymous"></script>
 
-    <script src="{{ asset('assets/js/animate.js') }}"></script>
-
-    <script src="{{ asset('assets/js/bootstrap-select.js') }}"></script>
-
-    <script src="{{ asset('assets/js/perfect-scrollbar.min.js') }}"></script>
-    <script>
-        var ps = new PerfectScrollbar('#sidebar');
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"
-        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     @yield('script')
 </body>
 

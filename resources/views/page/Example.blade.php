@@ -1,57 +1,64 @@
 @extends('layout.Base')
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="white_shd full margin_bottom_30">
-                <div class="full graph_head">
-                    <div class="heading1 margin_0">
-                        <h2>Responsive Tables</h2>
-                    </div>
-                </div>
-                <div class="table_section padding_infor_info">
-                    <div class="table-responsive-sm">
-                        <table class="table " id="tableData">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Firstname</th>
-                                    <th>Lastname</th>
-                                    <th>Age</th>
-                                    <th>City</th>
-                                    <th>Country</th>
-                                    <th>Sex</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                    <th>Example</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Anna</td>
-                                    <td>Pitt</td>
-                                    <td>35</td>
-                                    <td>New York</td>
-                                    <td>USA</td>
-                                    <td>Female</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                    <td>Yes</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Basic Table</h4>
+            <p class="card-description">
+                Add class <code>.table</code>
+            </p>
+            <div class="table-responsive">
+                <table class="table" id="tableData">
+                    <thead>
+                        <tr>
+                            <th>Profile</th>
+                            <th>VatNo.</th>
+                            <th>Created</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jacob</td>
+                            <td>53275531</td>
+                            <td>12 May 2017</td>
+                            <td><label class="badge badge-danger">Pending</label></td>
+                        </tr>
+                        <tr>
+                            <td>Messsy</td>
+                            <td>53275532</td>
+                            <td>15 May 2017</td>
+                            <td><label class="badge badge-warning">In progress</label></td>
+                        </tr>
+                        <tr>
+                            <td>John</td>
+                            <td>53275533</td>
+                            <td>14 May 2017</td>
+                            <td><label class="badge badge-info">Fixed</label></td>
+                        </tr>
+                        <tr>
+                            <td>Peter</td>
+                            <td>53275534</td>
+                            <td>16 May 2017</td>
+                            <td><label class="badge badge-success">Completed</label></td>
+                        </tr>
+                        <tr>
+                            <td>Dave</td>
+                            <td>53275535</td>
+                            <td>20 May 2017</td>
+                            <td><label class="badge badge-warning">In progress</label></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function() {
+<script>
+    $(document).ready(function() {
             $('#tableData').DataTable();
         })
-    </script>
+</script>
 @endsection
