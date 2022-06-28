@@ -61,6 +61,29 @@
                     <span class="text-muted d-block text-center text-sm-left d-sm-inline-block mt-2">Distributed By: <a
                             href="https://www.themewagon.com/" target="_blank">ThemeWagon</a></span>
                 </footer>
+                <div class="modal fade" id="modal-univ">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modal Heading</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <div class="modal-body">
+                                <form id="form-univ" action="" enctype="multipart/form-data">
+                                    @csrf
+                                </form>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" id="btnUpdate" class="btn btn-primary">Proses</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -41,7 +41,7 @@
                                     <td>{{$d->jk}}</td>
                                     <td>
                                         <button type="button" data-id="{{ $d->id }}" id="btnEdit"
-                                            class="btn btn-success">
+                                            class="btn btn-success" data-toggle="modal" data-target="#modal-univ">
                                             <i class="mdi mdi-pencil"></i></button>
                                         <button type="button" data-id="{{ $d->id }}" id="btnHapus"
                                             class="btn btn-danger">
@@ -176,7 +176,7 @@
                     <div class="form-group row">
                         <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="pegawai_id" name="id" value="`+data.id+`">
+                            <input type="hidden" class="form-control" id="pegawai_id" name="id" value="`+data.id+`">
                             <input type="text" class="form-control" id="nama" name="nama" value="`+data.nama+`">
                         </div>
                     </div>
