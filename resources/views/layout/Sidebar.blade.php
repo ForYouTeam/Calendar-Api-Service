@@ -14,7 +14,7 @@
         <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{route('pegawai.all')}}">Data Pegawai</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Data Detail
+                <li class="nav-item"> <a class="nav-link" href="{{route('detail.all')}}">Data Detail
                         Kegiatan</a></li>
                 <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Data Calendar
                         Service</a></li>

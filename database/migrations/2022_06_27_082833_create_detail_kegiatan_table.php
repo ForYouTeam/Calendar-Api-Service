@@ -10,14 +10,13 @@ class CreateDetailKegiatanTable extends Migration
     {
         Schema::create('detail_kegiatan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pegawai_id')->constrained('pegawai');
             $table->string('tempat');
             $table->string('pakaian');
             $table->string('penyelenggara');
             $table->string('pejabat_menghadiri');
-            $table->string('protokol');
-            $table->string('kopim');
-            $table->string('dokpim');
+            $table->foreignId('protokol')->constrained('pegawai');
+            $table->foreignId('kopim')->constrained('pegawai');
+            $table->foreignId('dokpim')->constrained('pegawai');
             $table->timestamps();
         });
     }
