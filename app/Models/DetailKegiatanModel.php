@@ -11,7 +11,6 @@ class DetailKegiatanModel extends Model
     protected $table = "detail_kegiatan";
     protected $fillable = [
         'id',
-        'pegawai_id',
         'tempat',
         'pakaian',
         'penyelenggara',
@@ -21,7 +20,13 @@ class DetailKegiatanModel extends Model
         'dokpim',
     ];
     
-    function pegawaiRole (){
-        $this->belongsTo(PegawaiModel::class, 'pegawai_id');
+    function protokolRole (){
+        return $this->belongsTo(PegawaiModel::class, 'protokol');
+    }
+    function kopimRole (){
+        return $this->belongsTo(PegawaiModel::class, 'kopim');
+    }
+    function dokpimRole (){
+        return $this->belongsTo(PegawaiModel::class, 'dokpim');
     }
 }

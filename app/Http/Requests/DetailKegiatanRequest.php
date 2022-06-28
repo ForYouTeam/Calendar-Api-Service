@@ -16,7 +16,6 @@ class DetailKegiatanRequest extends FormRequest
     public function rules()
     {
         return [
-            'pegawai_id' => 'required',
             'tempat' => 'required',
             'pakaian' => 'required',
             'penyelenggara' => 'required',
