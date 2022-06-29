@@ -44,12 +44,14 @@
                                     <td>{{$d->kopimRole->nama}}</td>
                                     <td>{{$d->dokpimRole->nama}}</td>
                                     <td>
-                                        <button type="button" data-id="{{ $d->id }}" id="btnEdit"
-                                            class="btn btn-success" data-toggle="modal" data-target="#modal-univ">
-                                            <i class="mdi mdi-pencil"></i></button>
+                                        <button type="button" data-id="{{ $d->id }}" id="btnEdit" data-toggle="modal"
+                                            data-target="#modal-univ" class="btn btn-success btn-rounded btn-icon">
+                                            <i class="typcn typcn-pencil"></i>
+                                        </button>
                                         <button type="button" data-id="{{ $d->id }}" id="btnHapus"
-                                            class="btn btn-danger">
-                                            <i class="mdi mdi-delete"></i></button>
+                                            class="btn btn-danger btn-rounded btn-icon">
+                                            <i class="typcn typcn-delete"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -216,59 +218,66 @@
                     $('.modal-title').html('Perubahan Data');
                     $('#form-univ').html('');
                     $('#form-univ').append(`
-                    <div class="form-group row">
-                        <label for="tempat" class="col-sm-3 col-form-label">Tempat</label>
-                        <div class="col-sm-9">
-                            <input type="hidden" class="form-control" id="detail_id" name="id" value="`+data.id+`">
-                            <input type="text" class="form-control" id="tempat" name="tempat" value="`+data.tempat+`">
+                    <div class="row">
+                        <div class="form-group row col-6">
+                            <label for="tempat" class="col-sm-3 col-form-label">Tempat</label>
+                            <div class="col-sm-9">
+                                <input type="hidden" class="form-control" id="detail_id" name="id" value="`+data.id+`">
+                                <input type="text" class="form-control" id="tempat" name="tempat" value="`+data.tempat+`">
+                            </div>
+                        </div>
+                        <div class="form-group row col-6">
+                            <label for="pakaian" class="col-sm-3 col-form-label">Pakaian</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="pakaian" name="pakaian"
+                                value="`+data.pakaian+`">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="pakaian" class="col-sm-3 col-form-label">Pakaian</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="pakaian" name="pakaian"
-                            value="`+data.pakaian+`">
+                    <div class="row">
+                        <div class="form-group row col-6">
+                            <label for="penyelenggara" class="col-sm-3 col-form-label">Penyelenggara</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="penyelenggara" name="penyelenggara"
+                                value="`+data.penyelenggara+`">
+                            </div>
+                        </div>
+                        <div class="form-group row col-6">
+                            <label for="pejabat_menghadiri" class="col-sm-3 col-form-label">Pejabat
+                                Menghadiri</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="pejabat_menghadiri"
+                                    name="pejabat_menghadiri" value="`+data.pejabat_menghadiri+`">
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="penyelenggara" class="col-sm-3 col-form-label">Penyelenggara</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="penyelenggara" name="penyelenggara"
-                            value="`+data.penyelenggara+`">
+                    <div class="row">
+                        <div class="form-group row col-6">
+                            <label class="col-sm-3 col-form-label">Protokol</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="protokolEdit" name="protokol">
+                                    <option selected disabled>Pilih</option>
+                                    @foreach ($data['data']['pegawai'] as $d)
+                                    <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row col-6">
+                            <label class="col-sm-3 col-form-label">Kopim</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="kopimEdit" name="kopim">
+                                    <option selected disabled>Pilih</option>
+                                    @foreach ($data['data']['pegawai'] as $d)
+                                    <option value="{{$d->id}}">{{$d->nama}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="pejabat_menghadiri" class="col-sm-3 col-form-label">Pejabat
-                            Menghadiri</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="pejabat_menghadiri"
-                                name="pejabat_menghadiri" value="`+data.pejabat_menghadiri+`">
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Protokol</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="protokolEdit" name="protokol">
-                                <option selected disabled>Pilih</option>
-                                @foreach ($data['data']['pegawai'] as $d)
-                                <option value="{{$d->id}}">{{$d->nama}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Kopim</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="kopimEdit" name="kopim">
-                                <option selected disabled>Pilih</option>
-                                @foreach ($data['data']['pegawai'] as $d)
-                                <option value="{{$d->id}}">{{$d->nama}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
+                   <div class="row">
+                    <div class="form-group row col-6">
                         <label class="col-sm-3 col-form-label">Dokpim</label>
                         <div class="col-sm-9">
                             <select class="form-control" id="dokpimEdit" name="dokpim">
@@ -279,6 +288,7 @@
                             </select>
                         </div>
                     </div>
+                   </div>
                 `);
                     $('#protokolEdit').val(data.protokol);
                     $('#kopimEdit').val(data.kopim);

@@ -50,12 +50,14 @@
                                     <td>{{$d->kegiatanRole->kopimRole->nama}}</td>
                                     <td>{{$d->kegiatanRole->dokpimRole->nama}}</td>
                                     <td>
-                                        <button type="button" data-id="{{ $d->id }}" id="btnEdit"
-                                            class="btn btn-success" data-toggle="modal" data-target="#modal-univ">
-                                            <i class="mdi mdi-pencil"></i></button>
+                                        <button type="button" data-id="{{ $d->id }}" id="btnEdit" data-toggle="modal"
+                                            data-target="#modal-univ" class="btn btn-success btn-rounded btn-icon">
+                                            <i class="typcn typcn-pencil"></i>
+                                        </button>
                                         <button type="button" data-id="{{ $d->id }}" id="btnHapus"
-                                            class="btn btn-danger">
-                                            <i class="mdi mdi-delete"></i></button>
+                                            class="btn btn-danger btn-rounded btn-icon">
+                                            <i class="typcn typcn-delete"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -173,8 +175,8 @@
                     $('#form-univ').append(`
                     <div class="form-group row">
                         <input type="hidden" id="kegiatan1_id" name="id" value="`+data.id+`">
-                        <label class="col-sm-3 col-form-label">Detail Kegiatan</label>
-                        <div class="col-sm-9">
+                        <label class="col-sm-2 col-form-label">Detail Kegiatan</label>
+                        <div class="col-sm-10">
                             <select class="form-control" id="kegiatanEdit" name="kegiatan_id">
                                 <option selected disabled>Pilih</option>
                                 @foreach ($data['data']['detail'] as $d)
@@ -184,18 +186,18 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="tgl" class="col-sm-3 col-form-label">Hari/Tanggal</label>
-                        <div class="col-sm-9">
+                        <label for="tgl" class="col-sm-2 col-form-label">Hari/Tanggal</label>
+                        <div class="col-sm-10">
                             <input type="datetime-local" class="form-control" id="tglEdit" name="tgl">
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="kegiatan" class="col-sm-3 col-form-label">Kegiatan</label>
-                        <textarea class="form-control col-sm-9" id="kegiatan" name="kegiatan" rows="4">`+data.kegiatan+`</textarea>
+                        <label for="kegiatan" class="col-sm-2 col-form-label">Kegiatan</label>
+                        <textarea class="form-control col-sm-10" id="kegiatan" name="kegiatan" rows="4">`+data.kegiatan+`</textarea>
                     </div>
                     <div class="form-group row">
-                        <label for="keterangan" class="col-sm-3 col-form-label">Keterangan</label>
-                        <textarea class="form-control col-sm-9" id="keterangan" name="keterangan"
+                        <label for="keterangan" class="col-sm-2 col-form-label">Keterangan</label>
+                        <textarea class="form-control col-sm-10" id="keterangan" name="keterangan"
                             rows="4">`+data.keterangan+`</textarea>
                     </div>
                 `);

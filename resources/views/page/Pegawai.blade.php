@@ -13,9 +13,9 @@
             </ul>
             <div class="tab-content">
                 <div id="home" class="container tab-pane active"><br>
-                    <h1 class="card-title">Data Pegawai</h1>
+                    <h4 class="card-title">Tabel Pegawai</h4>
                     <div class="table-responsive">
-                        <table class="table" id="tableData">
+                        <table class="table table-striped" id="tableData">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -40,12 +40,14 @@
                                     <td>{{$d->bagian}}</td>
                                     <td>{{$d->jk}}</td>
                                     <td>
-                                        <button type="button" data-id="{{ $d->id }}" id="btnEdit"
-                                            class="btn btn-success" data-toggle="modal" data-target="#modal-univ">
-                                            <i class="mdi mdi-pencil"></i></button>
+                                        <button type="button" data-id="{{ $d->id }}" id="btnEdit" data-toggle="modal"
+                                            data-target="#modal-univ" class="btn btn-success btn-rounded btn-icon">
+                                            <i class="typcn typcn-pencil"></i>
+                                        </button>
                                         <button type="button" data-id="{{ $d->id }}" id="btnHapus"
-                                            class="btn btn-danger">
-                                            <i class="mdi mdi-delete"></i></button>
+                                            class="btn btn-danger btn-rounded btn-icon">
+                                            <i class="typcn typcn-delete"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -55,51 +57,57 @@
                 </div>
                 <div id="menu1" class="container tab-pane fade"><br>
                     <div class="row">
-                        <div class="card-body col-md-8 m-auto">
+                        <div class="card-body">
                             <h2 class="card-title">Input Data Pegawai</h2>
                             <form class="forms-sample" id="formSimpan">
                                 @csrf
-                                <div class="form-group row">
-                                    <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="nama" name="nama"
-                                            placeholder="Input Nama Lengkap">
-                                        <p class="text-danger miniAlert text-capitalize" id="alert-nama"></p>
+                                <div class="row">
+                                    <div class="form-group row col-6">
+                                        <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="nama" name="nama"
+                                                placeholder="Input Nama Lengkap">
+                                            <p class="text-danger miniAlert text-capitalize" id="alert-nama"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row col-6">
+                                        <label for="nip" class="col-sm-3 col-form-label">NIP</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="nip" name="nip"
+                                                placeholder="Input NIP">
+                                            <p class="text-danger miniAlert text-capitalize" id="alert-nip"></p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="nip" class="col-sm-3 col-form-label">NIP</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="nip" name="nip"
-                                            placeholder="Input NIP">
-                                        <p class="text-danger miniAlert text-capitalize" id="alert-nip"></p>
+                                <div class="row">
+                                    <div class="form-group row col-6">
+                                        <label for="jabatan" class="col-sm-3 col-form-label">Jabatan</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="jabatan" name="jabatan"
+                                                placeholder="Input Jabatan">
+                                            <p class="text-danger miniAlert text-capitalize" id="alert-jabatan"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row col-6">
+                                        <label for="bagian" class="col-sm-3 col-form-label">Bagian</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="bagian" name="bagian"
+                                                placeholder="Input Bagian">
+                                            <p class="text-danger miniAlert text-capitalize" id="alert-bagian"></p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="jabatan" class="col-sm-3 col-form-label">Jabatan</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="jabatan" name="jabatan"
-                                            placeholder="Input Jabatan">
-                                        <p class="text-danger miniAlert text-capitalize" id="alert-jabatan"></p>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="bagian" class="col-sm-3 col-form-label">Bagian</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="bagian" name="bagian"
-                                            placeholder="Input Bagian">
-                                        <p class="text-danger miniAlert text-capitalize" id="alert-bagian"></p>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
-                                    <div class="col-sm-9">
-                                        <select class="form-control" id="jk" name="jk">
-                                            <option selected disabled>Pilih</option>
-                                            <option value="pria">Pria</option>
-                                            <option value="wanita">Wanita</option>
-                                        </select>
-                                        <p class="text-danger miniAlert text-capitalize" id="alert-jk"></p>
+                                <div class="row">
+                                    <div class="form-group row col-6">
+                                        <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                                        <div class="col-sm-9">
+                                            <select class="form-control" id="jk" name="jk">
+                                                <option selected disabled>Pilih</option>
+                                                <option value="pria">Pria</option>
+                                                <option value="wanita">Wanita</option>
+                                            </select>
+                                            <p class="text-danger miniAlert text-capitalize" id="alert-jk"></p>
+                                        </div>
                                     </div>
                                 </div>
                                 <button type="button" id="btnSimpan"
@@ -173,40 +181,46 @@
                     $('.modal-title').html('Perubahan Data');
                     $('#form-univ').html('');
                     $('#form-univ').append(`
-                    <div class="form-group row">
-                        <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
-                        <div class="col-sm-9">
-                            <input type="hidden" class="form-control" id="pegawai_id" name="id" value="`+data.id+`">
-                            <input type="text" class="form-control" id="nama" name="nama" value="`+data.nama+`">
+                    <div class="row">
+                        <div class="form-group row col-6">
+                            <label for="nama" class="col-sm-3 col-form-label">Nama Lengkap</label>
+                            <div class="col-sm-9">
+                                <input type="hidden" class="form-control" id="pegawai_id" name="id" value="`+data.id+`">
+                                <input type="text" class="form-control" id="nama" name="nama" value="`+data.nama+`">
+                            </div>
+                        </div>
+                        <div class="form-group row col-6">
+                            <label for="nip" class="col-sm-3 col-form-label">NIP</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="nip" name="nip" value="`+data.nip+`">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="nip" class="col-sm-3 col-form-label">NIP</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="nip" name="nip" value="`+data.nip+`">
+                    <div class="row">
+                        <div class="form-group row col-6">
+                            <label for="jabatan" class="col-sm-3 col-form-label">Jabatan</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="jabatan" name="jabatan" value="`+data.jabatan+`">
+                            </div>
+                        </div>
+                        <div class="form-group row col-6">
+                            <label for="bagian" class="col-sm-3 col-form-label">Bagian</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="bagian" name="bagian" value="`+data.bagian+`">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="jabatan" class="col-sm-3 col-form-label">Jabatan</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="jabatan" name="jabatan" value="`+data.jabatan+`">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="bagian" class="col-sm-3 col-form-label">Bagian</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control" id="bagian" name="bagian" value="`+data.bagian+`">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
-                        <div class="col-sm-9">
-                            <select class="form-control" id="jkEdit" name="jk">
-                                <option selected disabled>Pilih</option>
-                                <option value="pria">Pria</option>
-                                <option value="wanita">Wanita</option>
-                            </select>
-                            <p class="text-danger miniAlert text-capitalize" id="alert-jk"></p>
+                    <div class="row">
+                        <div class="form-group row col-6">
+                            <label class="col-sm-3 col-form-label">Jenis Kelamin</label>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="jkEdit" name="jk">
+                                    <option selected disabled>Pilih</option>
+                                    <option value="pria">Pria</option>
+                                    <option value="wanita">Wanita</option>
+                                </select>
+                                <p class="text-danger miniAlert text-capitalize" id="alert-jk"></p>
+                            </div>
                         </div>
                     </div>
                 `);
