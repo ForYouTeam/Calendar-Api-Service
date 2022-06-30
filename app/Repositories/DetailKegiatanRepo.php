@@ -15,20 +15,28 @@ class DetailKegiatanRepo implements DetailKegiatanInterface
             if ($dbResult) {
                 $detail = array(
                     'data' => $dbResult,
-                    'message' => 'Data berhasil ditemukan',
+                    'message' => 'Data tersedia',
                     'code' => 201
                 );
             } else {
                 $detail = array(
                     'data' => null,
-                    'message' => 'Data tidak tersedia',
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
                     'code' => 404
                 );
             }
         } catch (\Throwable $th) {
             $detail = array(
                 'data' => null,
-                'message' => $th->getMessage(),
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
                 'code' => 500
             );
         }
@@ -43,9 +51,9 @@ class DetailKegiatanRepo implements DetailKegiatanInterface
             $detail = array(
                 'data' => $dbResult['id'],
                 'response' => array(
-                    'icon' => 'warning',
-                    'title' => 'Not Found',
-                    'message' => 'Data tidak tersedia',
+                    'icon' => 'success',
+                    'title' => 'Berhasil',
+                    'message' => 'Data berhasil dibuat',
                 ),
                 'code' => 201
             );
@@ -74,20 +82,32 @@ class DetailKegiatanRepo implements DetailKegiatanInterface
             if ($findId) {
                 $detail = array(
                     'data' => $dbResult->update($newDetail),
-                    'message' => 'Data berhasil diperbaharui',
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Berhasil',
+                        'message' => 'Data berhasil diperbaharui',
+                    ),
                     'code' => 201
                 );
             } else {
                 $detail = array(
                     'data' => null,
-                    'message' => 'Data tidak tersedia',
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
                     'code' => 404
                 );
             }
         } catch (\Throwable $th) {
             $detail = array(
                 'data' => null,
-                'message' => $th->getMessage(),
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
                 'code' => 500
             );
         }
@@ -103,20 +123,32 @@ class DetailKegiatanRepo implements DetailKegiatanInterface
             if ($findId) {
                 $detail = array(
                     'data' => $dbResult->delete(),
-                    'message' => 'Data berhasil dihapus',
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Berhasil',
+                        'message' => 'Data berhasil dihapus',
+                    ),
                     'code' => 201
                 );
             } else {
                 $detail = array(
                     'data' => null,
-                    'message' => 'Data tidak tersedia',
+                    'response' => array(
+                        'icon' => 'warning',
+                        'title' => 'Not Found',
+                        'message' => 'Data tidak tersedia',
+                    ),
                     'code' => 404
                 );
             }
         } catch (\Throwable $th) {
             $detail = array(
                 'data' => null,
-                'message' => $th->getMessage(),
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
                 'code' => 500
             );
         }

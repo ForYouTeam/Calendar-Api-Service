@@ -35,6 +35,16 @@
                                             <td>{{ $d->kegiatanRole->tempat }}</td>
                                             <td>{{ date('d, F H:i', strtotime($d->tgl_mulai)) }} -
                                                 {{ date('d, F Y H:i', strtotime($d->tgl_berakhir)) }}</td>
+                                            <td>
+                                                <button type="button" data-id="{{ $d->id }}"
+                                                    id="btnInfo"class="btn btn-info btn-rounded btn-icon">
+                                                    <i class="typcn typcn-info"></i>
+                                                </button>
+                                                <button type="button" data-id="{{ $d->id }}" data-detail="{{ $d->detail_kegiatan }}" id="btnHapus"
+                                                    class="btn btn-danger btn-rounded btn-icon">
+                                                    <i class="typcn typcn-delete"></i>
+                                                </button>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -222,6 +232,211 @@
                     }
                 });
             });
+
+            $('#btnInfo').on('click', function() {
+                let _id = $(this).data('id');
+                let url = `{{ config('app.url') }}/kegiatan/${_id}`;
+
+                $('.modal-title').html('Detail Kegiatan');
+                $('#form-univ').html('');
+                $('.modal-footer').css('padding-right', '180px');
+                $('.modal-footer').css('padding-bottom', '30px');
+                $('#btnUpdate').prop('disabled', true)
+                $.get(url, function(result) {
+                    
+                    let data = result.data
+                    console.log(data);
+                    $('#form-univ').append(`
+                    <div class="card" style="margin: 10px 170px; 70px">
+                        <div class="row" style="padding: 20px 30px; 30px">
+                            <div class="card-body col-sm-6">
+                                <h4 class="card-title text-info">Detail & Perubahan Data</h4>
+                                <p class="card-description text-danger">
+                                    Perhatian
+                                </p>
+                                <p class="text-capitalize">
+                                    perubahan data yang dilakukan akan merubah data jadwal yang telah disimpan di google calender.
+                                </p>
+                            </div>
+                            <div class="col-sm-6" style="padding-right: 30px">
+                                <button id="btn-enable" type="button" class="mt-4 float-right btn btn-sm btn-primary btn-icon-text">
+                                Ubah Data <i class="typcn typcn-document btn-icon-append"></i>                          
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row" style="padding: 10px 50px 50px">
+                            <div class="form-group col-sm-6">
+                                <label for="">Nama Kegiatan</label>
+                                <input type="hidden" value="${data.id}" id="idKegiatan">
+                                <input type="hidden" value="${data.detail_kegiatan}" name="detail_kegiatan">
+                                <input value="${data.nama_kegiatan}" readonly type="text" class="form-control" id="" name="nama_kegiatan">
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="">Tgl Mulai</label>
+                                <input value="${data.tgl_mulai}" readonly type="datetime-local" class="form-control" id="" name="tgl_mulai">
+                            </div>
+                            <div class="form-group col-sm-3">
+                                <label for="">Tgl Berakhir</label>
+                                <input value="${data.tgl_berakhir}" readonly type="datetime-local" class="form-control" id="" name="tgl_berakhir">
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <label for="">Keterangan</label>
+                                <textarea readonly class="form-control" id="" rows="4" name="keterangan">${data.keterangan}</textarea>
+                                <hr>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="">Tempat</label>
+                                <input value="${data.kegiatan_role.tempat}" readonly type="text" class="form-control" id="" name="tempat">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="">Pakaian</label>
+                                <input value="${data.kegiatan_role.pakaian}" readonly type="text" class="form-control" id="" name="pakaian">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="">Penyelenggara</label>
+                                <input value="${data.kegiatan_role.penyelenggara}" readonly type="text" class="form-control" id="" name="penyelenggara">
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="">Penjabat Menghadiri</label>
+                                <input value="${data.kegiatan_role.penjabat_menghadiri}" readonly type="text" class="form-control" id="" name="penjabat_menghadiri">
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="">Protokol</label>
+                                <select disabled class="form-control form-control-sm selectUpdate" id="editprotokol" name="protokol">
+                                    <option selected disabled>-Pilih-</option>
+                                    <option>-1-</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="">Dokpim</label>
+                                <select disabled class="form-control form-control-sm selectUpdate" id="editdokpim" name="dokpim">
+                                    <option selected disabled>-Pilih-</option>
+                                    <option>-1-</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label for="">Kopim</label>
+                                <select disabled class="form-control form-control-sm selectUpdate" id="editkopim" name="kopim">
+                                    <option selected disabled>-Pilih-</option>
+                                    <option>-1-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    `);
+                    $('.selectUpdate').html(`
+                        <option selected disabled>Pilih</option>
+                        @foreach ($data['data']['pegawai'] as $d)
+                            <option value="{{ $d->id }}">{{ $d->nama }}</option>
+                        @endforeach
+                    `);
+                    let select3 = {
+                        "protokol":data.kegiatan_role.protokol,
+                        "dokpim":data.kegiatan_role.dokpim,
+                        "kopim":data.kegiatan_role.kopim
+                    }
+                    $.each( select3, function(i, value){
+                        $(`#edit`+i).val(value);
+                    });
+                    $('#modal-univ').modal('show');
+                });
+            });
+        });
+        $(document).on('click', '#btn-enable', function() {
+            let checkPrimary = $(this).hasClass('btn-primary');
+            if (!checkPrimary) {
+                $(this).addClass('btn-primary') 
+                $(this).removeClass('btn-dark') 
+                $(this).html(`Ubah Data <i class="typcn typcn-document btn-icon-append"></i>`)
+                $('#form-univ :input').prop('readonly', true)
+                $('.selectUpdate').prop('disabled', true)
+                $('#btnUpdate').prop('disabled', true)
+            } else {
+                $(this).addClass('btn-dark') 
+                $(this).removeClass('btn-primary') 
+                $(this).html(`Batal Ubah Data <i class="typcn typcn-document btn-icon-append"></i>`)
+                $('#form-univ :input').prop('readonly', false)
+                $('.selectUpdate').prop('disabled', false)
+                $('#btnUpdate').prop('disabled', false)
+            }
+        });
+
+        $(document).on('click', '#btnUpdate', function(){
+            let _id = $('#idKegiatan').val();
+            let url = `{{ config('app.url') }}/kegiatan/${_id}`;
+            let data = $('#form-univ').serialize();
+            let modalClose = () => {
+                $('#modal-univ').modal('hide');
+            }
+            $.ajax({
+                url: url,
+                method: "patch",
+                data: data,
+                success: function(result) {
+                    modalClose();
+                    Swal.fire({
+                        title: result.response.title,
+                        text: result.response.message,
+                        icon: result.response.icon,
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Oke'
+                    }).then((result) => {
+                        location.reload();
+                    });
+                },
+                error: function(result) {
+                    let data = result.responseJSON
+                    modalClose();
+                    Swal.fire({
+                        icon: data.response.icon,
+                        title: data.response.title,
+                        text: data.response.message,
+                    });
+                }
+            });
+        });
+
+        $(document).on('click', '#btnHapus', function() {
+            let _id = $(this).data('id');
+            let id_detail = $(this).data('detail');
+            let url = `{{ config('app.url') }}/kegiatan/${_id}/${id_detail}`;
+            Swal.fire({
+                title: 'Anda Yakin?',
+                text: "Data ini mungkin terhubung ke tabel yang lain!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Hapus'
+            }).then((res) => {
+                if (res.isConfirmed) {
+                    $.ajax({
+                        url: url,
+                        type: 'delete',
+                        success: function(result) {
+                            let data = result.data;
+                            Swal.fire({
+                                title: result.response.title,
+                                text: result.response.message,
+                                icon: result.response.icon,
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Oke'
+                            }).then((result) => {
+                                location.reload();
+                            });
+                        },
+                        error: function(result) {
+                            let data = result.responseJSON
+                            Swal.fire({
+                                icon: data.response.icon,
+                                title: data.response.title,
+                                text: data.response.message,
+                            });
+                        }
+                    });
+                }
+            })
         });
     </script>
 @endsection

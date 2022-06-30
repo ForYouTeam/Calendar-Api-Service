@@ -33,7 +33,7 @@ Route::prefix('kegiatan')->group(function () {
     Route::post('/', [KegiatanController::class, 'createKegiatan']);
     Route::get('/{id}', [KegiatanController::class, 'getKegiatanById']);
     Route::patch('/{id}', [KegiatanController::class, 'updateKegiatan']);
-    Route::delete('/{id}', [KegiatanController::class, 'deleteKegiatan']);
+    Route::delete('/{id}/{id_detail}', [KegiatanController::class, 'deleteKegiatan']);
 });
 
 Route::prefix('kalender')->group(function () {
