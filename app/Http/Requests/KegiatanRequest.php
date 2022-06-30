@@ -16,14 +16,14 @@ class KegiatanRequest extends FormRequest
     public function rules()
     {
         return [
-            'tgl_mulai' => 'required|date_format',
-            'tgl_berakhir' => 'required|date_format',
-            'kegiatan' => 'required|min:5',
+            'tgl_mulai' => 'required',
+            'tgl_berakhir' => 'required',
+            'nama_kegiatan' => 'required|min:5',
             'keterangan' => 'required|min:5',
             'tempat' => 'required|min:5',
             'pakaian' => 'required|min:3',
             'penyelenggara' => 'required|min:3',
-            'pejabat_menghadiri' => 'required|min:3',
+            'penjabat_menghadiri' => 'required|min:3',
             'protokol' => 'required|integer',
             'kopim' => 'required|integer',
             'dokpim' => 'required|integer',

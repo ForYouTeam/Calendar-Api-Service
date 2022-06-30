@@ -13,7 +13,7 @@ class CreateDetailKegiatanTable extends Migration
             $table->string('tempat');
             $table->string('pakaian');
             $table->string('penyelenggara');
-            $table->string('pejabat_menghadiri');
+            $table->string('penjabat_menghadiri');
             $table->foreignId('protokol')->constrained('pegawai');
             $table->foreignId('kopim')->constrained('pegawai');
             $table->foreignId('dokpim')->constrained('pegawai');

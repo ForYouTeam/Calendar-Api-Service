@@ -15,32 +15,20 @@ class DetailKegiatanRepo implements DetailKegiatanInterface
             if ($dbResult) {
                 $detail = array(
                     'data' => $dbResult,
-                    'response' => array(
-                        'icon' => 'success',
-                        'title' => 'Ditemukan',
-                        'message' => 'Data berhasil ditemukan',
-                    ),
+                    'message' => 'Data berhasil ditemukan',
                     'code' => 201
                 );
             } else {
                 $detail = array(
                     'data' => null,
-                    'response' => array(
-                        'icon' => 'warning',
-                        'title' => 'Not Found',
-                        'message' => 'Data tidak tersedia',
-                    ),
+                    'message' => 'Data tidak tersedia',
                     'code' => 404
                 );
             }
         } catch (\Throwable $th) {
             $detail = array(
                 'data' => null,
-                'response' => array(
-                    'icon' => 'error',
-                    'title' => 'Gagal',
-                    'message' => $th->getMessage(),
-                ),
+                'message' => $th->getMessage(),
                 'code' => 500
             );
         }
@@ -53,14 +41,22 @@ class DetailKegiatanRepo implements DetailKegiatanInterface
         try {
             $dbResult = DetailKegiatanModel::create($newDetail);
             $detail = array(
-                'data' => $dbResult,
-                'message' => 'Data berhasil disimpan',
+                'data' => $dbResult['id'],
+                'response' => array(
+                    'icon' => 'warning',
+                    'title' => 'Not Found',
+                    'message' => 'Data tidak tersedia',
+                ),
                 'code' => 201
             );
         } catch (\Throwable $th) {
             $detail = array(
                 'data' => null,
-                'message' => $th->getMessage(),
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
                 'code' => 500
             );
         }

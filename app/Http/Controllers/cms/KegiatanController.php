@@ -7,6 +7,7 @@ use App\Http\Requests\KegiatanRequest;
 use App\Interfaces\DetailKegiatanInterface;
 use App\Models\DetailKegiatanModel;
 use App\Models\KegiatanModel;
+use App\Models\PegawaiModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class KegiatanController extends Controller
         try {
             $dbResult = array(
                 'kegiatan' => KegiatanModel::with('kegiatanRole')->get(),
-                'detail' => DetailKegiatanModel::all(),
+                'pegawai' => PegawaiModel::all(),
             );
             $kegiatan = array(
                 'data' => $dbResult,
@@ -49,31 +50,37 @@ class KegiatanController extends Controller
     public function createKegiatan(KegiatanRequest $request)
     {
         try {
-            $detailKegiatan = $request->only(
+            $detailKegiatan = $request->only([
                 'tempat',
                 'pakaian',
-                'penyelengara',
+                'penyelenggara',
                 'penjabat_menghadiri',
                 'protokol',
                 'kopim',
                 'dokpim'
-            );
-            $kegiatanDetail = array(
-                'detail_kegiatan' => $this->detailKegiatanRepo->createData($detailKegiatan),
-                'tgl_mulai' => $request->tgl_mulai,
-                'tgl_berakhir' => $request->tgl_brakhir,
-                'keterangan' => $request->keterangan
-            );
-            $dbResult = KegiatanModel::create($kegiatanDetail);
-            $kegiatan = array(
-                'data' => $dbResult,
-                'response' => array(
-                    'icon' => 'success',
-                    'title' => 'Tersimpan',
-                    'message' => 'Data berhasil disimpan',
-                ),
-                'code' => 201
-            );
+            ]);
+            $detailKegiatanId = $this->detailKegiatanRepo->createData($detailKegiatan);
+            if ($detailKegiatanId['code'] == 404 or $detailKegiatanId['code'] == 500) {
+                return response()->json($detailKegiatanId, $detailKegiatanId['code']);
+            } else {
+                $kegiatanDetail = array(
+                    'detail_kegiatan' => $detailKegiatanId['data'],
+                    'nama_kegiatan' => $request->nama_kegiatan,
+                    'tgl_mulai' => $request->tgl_mulai,
+                    'tgl_berakhir' => $request->tgl_berakhir,
+                    'keterangan' => $request->keterangan
+                );
+                $dbResult = KegiatanModel::create($kegiatanDetail);
+                $kegiatan = array(
+                    'data' => $dbResult,
+                    'response' => array(
+                        'icon' => 'success',
+                        'title' => 'Tersimpan',
+                        'message' => 'Data berhasil disimpan',
+                    ),
+                    'code' => 201
+                );
+            }
         } catch (\Throwable $th) {
             $kegiatan = array(
                 'data' => null,

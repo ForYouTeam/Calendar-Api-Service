@@ -14,19 +14,22 @@ class DetailKegiatanModel extends Model
         'tempat',
         'pakaian',
         'penyelenggara',
-        'pejabat_menghadiri',
+        'penjabat_menghadiri',
         'protokol',
         'kopim',
         'dokpim',
     ];
-    
-    function protokolRole (){
+
+    function protokolRole()
+    {
         return $this->belongsTo(PegawaiModel::class, 'protokol');
     }
-    function kopimRole (){
+    function kopimRole()
+    {
         return $this->belongsTo(PegawaiModel::class, 'kopim');
     }
-    function dokpimRole (){
+    function dokpimRole()
+    {
         return $this->belongsTo(PegawaiModel::class, 'dokpim');
     }
 }

@@ -25,7 +25,18 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @php
+                                        $no = 1;
+                                    @endphp
+                                    @foreach ($data['data']['kegiatan'] as $d)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $d->nama_kegiatan }}</td>
+                                            <td>{{ $d->kegiatanRole->tempat }}</td>
+                                            <td>{{ date('d, F H:i', strtotime($d->tgl_mulai)) }} -
+                                                {{ date('d, F Y H:i', strtotime($d->tgl_berakhir)) }}</td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -41,7 +52,7 @@
                                             <label for="tempat" class="form-label">Nama Kegiatan</label>
                                             <div class="">
                                                 <input type="text" class="form-control" name="nama_kegiatan"
-                                                    placeholder="Input Tempat">
+                                                    placeholder="Input Nama Kegiatan">
                                                 <p class="text-danger miniAlert text-capitalize" id="alert-nama_kegiatan">
                                                 </p>
                                             </div>
@@ -94,8 +105,8 @@
                                         <div class="form-group col-6">
                                             <label for="penyelenggara" class="form-label">Penyelenggara</label>
                                             <div class="">
-                                                <input type="text" class="form-control" id="penyelenggara"
-                                                    name="penyelenggara" placeholder="Input Penyelenggara">
+                                                <input type="text" class="form-control" name="penyelenggara"
+                                                    placeholder="Input Penyelenggara">
                                                 <p class="text-danger miniAlert text-capitalize" id="alert-penyelenggara">
                                                 </p>
                                             </div>
@@ -104,8 +115,8 @@
                                             <label for="pejabat_menghadiri" class="form-label">Pejabat
                                                 Menghadiri</label>
                                             <div class="">
-                                                <input type="text" class="form-control" id="pejabat_menghadiri"
-                                                    name="pejabat_menghadiri" placeholder="Input Pejabat Menghadiri">
+                                                <input type="text" class="form-control" id="penjabat_menghadiri"
+                                                    name="penjabat_menghadiri" placeholder="Input Pejabat Menghadiri">
                                                 <p class="text-danger miniAlert text-capitalize"
                                                     id="alert-pejabat_menghadiri">
                                                 </p>
@@ -118,7 +129,9 @@
                                             <div class="">
                                                 <select class="form-control" id="protokol" name="protokol">
                                                     <option selected disabled>Pilih</option>
-
+                                                    @foreach ($data['data']['pegawai'] as $d)
+                                                        <option value="{{ $d->id }}">{{ $d->nama }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <p class="text-danger miniAlert text-capitalize" id="alert-protokol"></p>
                                             </div>
@@ -128,7 +141,9 @@
                                             <div class="">
                                                 <select class="form-control" id="kopim" name="kopim">
                                                     <option selected disabled>Pilih</option>
-
+                                                    @foreach ($data['data']['pegawai'] as $d)
+                                                        <option value="{{ $d->id }}">{{ $d->nama }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <p class="text-danger miniAlert text-capitalize" id="alert-kopim"></p>
                                             </div>
@@ -140,7 +155,9 @@
                                             <div class="">
                                                 <select class="form-control" id="dokpim" name="dokpim">
                                                     <option selected disabled>Pilih</option>
-
+                                                    @foreach ($data['data']['pegawai'] as $d)
+                                                        <option value="{{ $d->id }}">{{ $d->nama }}</option>
+                                                    @endforeach
                                                 </select>
                                                 <p class="text-danger miniAlert text-capitalize" id="alert-dokpim"></p>
                                             </div>

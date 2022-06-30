@@ -12,7 +12,8 @@ class KegiatanModel extends Model
     protected $fillable = [
         'id',
         'detail_kegiatan',
-        'tgl',
+        'tgl_mulai',
+        'tgl_berakhir',
         'nama_kegiatan',
         'keterangan',
     ];
