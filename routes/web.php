@@ -28,13 +28,6 @@ Route::prefix('pegawai')->group(function () {
     Route::patch('/{id}', [PegawaiController::class, 'updatePegawai']);
     Route::delete('/{id}', [PegawaiController::class, 'deletePegawai']);
 });
-Route::prefix('detail_kegiatan')->group(function () {
-    Route::get('/', [DetailKegiatanController::class, 'getAllDetail'])->name('detail.all');
-    Route::post('/', [DetailKegiatanController::class, 'createDetail']);
-    Route::get('/{id}', [DetailKegiatanController::class, 'getDetailById']);
-    Route::patch('/{id}', [DetailKegiatanController::class, 'updateDetail']);
-    Route::delete('/{id}', [DetailKegiatanController::class, 'deleteDetail']);
-});
 Route::prefix('kegiatan')->group(function () {
     Route::get('/', [KegiatanController::class, 'getAllKegiatan'])->name('kegiatan.all');
     Route::post('/', [KegiatanController::class, 'createKegiatan']);

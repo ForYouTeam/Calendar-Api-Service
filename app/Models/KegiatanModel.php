@@ -11,13 +11,14 @@ class KegiatanModel extends Model
     protected $table = "kegiatan";
     protected $fillable = [
         'id',
-        'kegiatan_id',
+        'detail_kegiatan',
         'tgl',
-        'kegiatan',
+        'nama_kegiatan',
         'keterangan',
     ];
 
-    function kegiatanRole (){
-       return $this->belongsTo(DetailKegiatanModel::class, 'kegiatan_id');
+    function kegiatanRole()
+    {
+        return $this->belongsTo(DetailKegiatanModel::class, 'detail_kegiatan');
     }
 }

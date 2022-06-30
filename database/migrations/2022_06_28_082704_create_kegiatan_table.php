@@ -10,9 +10,9 @@ class CreateKegiatanTable extends Migration
     {
         Schema::create('kegiatan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kegiatan_id')->constrained('detail_kegiatan');
+            $table->foreignId('detail_kegiatan')->constrained('detail_kegiatan');
             $table->dateTime('tgl');
-            $table->string('kegiatan');
+            $table->string('nama_kegiatan');
             $table->string('keterangan');
             $table->timestamps();
         });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\cms;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KegiatanRequest;
+use App\Interfaces\DetailKegiatanInterface;
 use App\Models\DetailKegiatanModel;
 use App\Models\KegiatanModel;
 use Carbon\Carbon;
@@ -11,12 +12,17 @@ use Illuminate\Http\Request;
 
 class KegiatanController extends Controller
 {
+    public function __construct(DetailKegiatanInterface $detailKegiatanRepo)
+    {
+        $this->detailKegiatanRepo = $detailKegiatanRepo;
+    }
+
     public function getAllKegiatan()
     {
         try {
-            $dbResult = array (
+            $dbResult = array(
                 'kegiatan' => KegiatanModel::with('kegiatanRole')->get(),
-                'detail' =>DetailKegiatanModel::all(),
+                'detail' => DetailKegiatanModel::all(),
             );
             $kegiatan = array(
                 'data' => $dbResult,
@@ -33,9 +39,9 @@ class KegiatanController extends Controller
 
     public function getAllData()
     {
-        $data = array (
-            'detail' =>KegiatanModel::all(),
-            'detail' =>DetailKegiatanModel::all(),
+        $data = array(
+            'detail' => KegiatanModel::all(),
+            'detail' => DetailKegiatanModel::all(),
         );
         return response()->json($data, 200);
     }
@@ -43,7 +49,22 @@ class KegiatanController extends Controller
     public function createKegiatan(KegiatanRequest $request)
     {
         try {
-            $dbResult = KegiatanModel::create($request->all());
+            $detailKegiatan = $request->only(
+                'tempat',
+                'pakaian',
+                'penyelengara',
+                'penjabat_menghadiri',
+                'protokol',
+                'kopim',
+                'dokpim'
+            );
+            $kegiatanDetail = array(
+                'detail_kegiatan' => $this->detailKegiatanRepo->createData($detailKegiatan),
+                'tgl_mulai' => $request->tgl_mulai,
+                'tgl_berakhir' => $request->tgl_brakhir,
+                'keterangan' => $request->keterangan
+            );
+            $dbResult = KegiatanModel::create($kegiatanDetail);
             $kegiatan = array(
                 'data' => $dbResult,
                 'response' => array(
