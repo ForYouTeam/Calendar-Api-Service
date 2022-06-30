@@ -3,6 +3,7 @@
 use App\Http\Controllers\cms\DetailKegiatanController;
 use App\Http\Controllers\cms\KegiatanController;
 use App\Http\Controllers\cms\PegawaiController;
+use App\Http\Controllers\google_service\SetEventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,4 +41,8 @@ Route::prefix('kegiatan')->group(function () {
     Route::get('/{id}', [KegiatanController::class, 'getKegiatanById']);
     Route::patch('/{id}', [KegiatanController::class, 'updateKegiatan']);
     Route::delete('/{id}', [KegiatanController::class, 'deleteKegiatan']);
+});
+
+Route::prefix('kalender')->group(function () {
+    Route::get('/', [SetEventController::class, 'index'])->name('kalender.all');
 });

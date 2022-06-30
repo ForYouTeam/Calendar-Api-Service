@@ -3,12 +3,25 @@
 namespace App\Http\Controllers\google_service;
 
 use App\Http\Controllers\Controller;
+use App\Interfaces\GServiceInterface;
+use App\Models\CalendarServiceModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Spatie\GoogleCalendar\Event;
 
 class SetEventController extends Controller
 {
+    public function __construct(GServiceInterface $GServiceRepo)
+    {
+        $this->GServiceRepo = $GServiceRepo;
+    }
+
+    public function index()
+    {
+        $kalender = CalendarServiceModel::all();
+        return view('page.Kalender')->with('data', $kalender);
+    }
+
     public function setEvent(Request $request)
     {
         $event = new Event;
