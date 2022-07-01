@@ -19,7 +19,7 @@ class KegiatanRequest extends FormRequest
             'tgl_mulai' => 'required',
             'tgl_berakhir' => 'required',
             'nama_kegiatan' => 'required|min:5',
-            'keterangan' => 'required|min:5',
+            'keterangan' => 'required|min:5|max:100000',
             'tempat' => 'required|min:5',
             'pakaian' => 'required|min:3',
             'penyelenggara' => 'required|min:3',

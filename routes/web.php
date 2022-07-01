@@ -39,3 +39,6 @@ Route::prefix('kegiatan')->group(function () {
 Route::prefix('kalender')->group(function () {
     Route::get('/', [SetEventController::class, 'index'])->name('kalender.all');
 });
+
+Route::prefix('service')->group(function () {
+});

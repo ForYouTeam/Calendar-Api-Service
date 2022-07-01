@@ -16,15 +16,13 @@ class CreateCalendarServiceTable extends Migration
         Schema::create('calendar_service', function (Blueprint $table) {
             $table->id();
             $table->string('calendar_id');
-            $table->string('sentUpdate');
-            $table->date('startDate');
-            $table->date('endDate');
+            $table->boolean('sentUpdate')->default(false);
+            $table->date('startDateTime');
+            $table->date('endDateTime');
             $table->string('name');
             $table->string('location');
-            $table->string('status');
-            $table->string('description');
-            $table->integer('reminderOvveridesMinutes');
-            $table->boolean('reminderUsedefault');
+            $table->string('status')->default('confirmed');
+            $table->longText('description');
             $table->timestamps();
         });
     }

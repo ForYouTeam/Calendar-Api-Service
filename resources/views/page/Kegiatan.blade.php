@@ -199,38 +199,59 @@
             $('#btnSimpan').on('click', function() {
                 let url = `{{ config('app.url') }}` + "/kegiatan";
                 let data = $('#formSimpan').serialize();
-                $.ajax({
-                    url: url,
-                    method: "POST",
-                    data: data,
-                    success: function(result) {
-                        Swal.fire({
-                            title: result.response.title,
-                            text: result.response.message,
-                            icon: result.response.icon,
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Oke'
-                        }).then((result) => {
-                            location.reload();
-                        });
-                    },
-                    error: function(result) {
-                        let data = result.responseJSON
-                        let errorRes = data.errors
-                        Swal.fire({
-                            icon: data.response.icon,
-                            title: data.response.title,
-                            text: data.response.message,
-                        });
-                        if (errorRes.length >= 1) {
-                            $('.miniAlert').html('');
-                            let data = errorRes.data;
-                            $.each(data, function(i, value) {
-                                $('#alert-' + i).html(value);
+                let timerInterval;
+                Swal.fire({
+                title: 'Dalam Proses!',
+                html: 'Ini akan menutup sendiri.',
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading()
+                    const b = Swal.getHtmlContainer().querySelector('b')
+                    timerInterval = setInterval(() => {
+                    b.textContent = Swal.getTimerLeft()
+                    }, 100);
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: data,
+                        success: function(result) {
+                            console.log(result);
+                            setTimeout(function(){
+                                Swal.fire({
+                                    title: result.response.title,
+                                    text: result.response.message,
+                                    icon: result.response.icon,
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Oke'
+                                }).then((result) => {
+                                    location.reload();
+                                });
+                            },2000)
+                        },
+                        error: function(result) {
+                            console.log(result);
+                            let data = result.responseJSON
+                            let errorRes = data.errors
+                            Swal.fire({
+                                icon: data.response.icon,
+                                title: data.response.title,
+                                text: data.response.message,
                             });
-                        }
-                    }
-                });
+                            if (errorRes.length >= 1) {
+                                $('.miniAlert').html('');
+                                let data = errorRes.data;
+                                $.each(data, function(i, value) {
+                                    $('#alert-' + i).html(value);
+                                });
+                            }
+                        },
+                    });
+                },
+                willClose: () => {
+                    clearInterval(timerInterval)
+                }
+                })
             });
 
             $('#btnInfo').on('click', function() {
@@ -368,31 +389,50 @@
             let modalClose = () => {
                 $('#modal-univ').modal('hide');
             }
-            $.ajax({
-                url: url,
-                method: "patch",
-                data: data,
-                success: function(result) {
-                    modalClose();
-                    Swal.fire({
-                        title: result.response.title,
-                        text: result.response.message,
-                        icon: result.response.icon,
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Oke'
-                    }).then((result) => {
-                        location.reload();
-                    });
-                },
-                error: function(result) {
-                    let data = result.responseJSON
-                    modalClose();
-                    Swal.fire({
-                        icon: data.response.icon,
-                        title: data.response.title,
-                        text: data.response.message,
-                    });
-                }
+            let timerInterval
+            Swal.fire({
+            title: 'Dalam Proses!',
+            html: 'Ini akan menutup sendiri.',
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                const b = Swal.getHtmlContainer().querySelector('b')
+                timerInterval = setInterval(() => {
+                b.textContent = Swal.getTimerLeft()
+                }, 100)
+                $.ajax({
+                    url: url,
+                    method: "patch",
+                    data: data,
+                    success: function(result) {
+                        setTimeout(function(){
+                            modalClose();
+                            Swal.fire({
+                                title: result.response.title,
+                                text: result.response.message,
+                                icon: result.response.icon,
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Oke'
+                            }).then((result) => {
+                                location.reload();
+                            });
+                        },2000)
+                    },
+                    error: function(result) {
+                        let data = result.responseJSON
+                        modalClose();
+                        Swal.fire({
+                            icon: data.response.icon,
+                            title: data.response.title,
+                            text: data.response.message,
+                        });
+                    }
+                });
+            },
+            willClose: () => {
+                clearInterval(timerInterval)
+            }
             });
         });
 
@@ -411,30 +451,49 @@
                 confirmButtonText: 'Hapus'
             }).then((res) => {
                 if (res.isConfirmed) {
-                    $.ajax({
-                        url: url,
-                        type: 'delete',
-                        success: function(result) {
-                            let data = result.data;
-                            Swal.fire({
-                                title: result.response.title,
-                                text: result.response.message,
-                                icon: result.response.icon,
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Oke'
-                            }).then((result) => {
-                                location.reload();
-                            });
-                        },
-                        error: function(result) {
-                            let data = result.responseJSON
-                            Swal.fire({
-                                icon: data.response.icon,
-                                title: data.response.title,
-                                text: data.response.message,
-                            });
-                        }
-                    });
+                    let timerInterval
+                    Swal.fire({
+                    title: 'Auto close alert!',
+                    html: 'I will close in <b></b> milliseconds.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        const b = Swal.getHtmlContainer().querySelector('b')
+                        timerInterval = setInterval(() => {
+                        b.textContent = Swal.getTimerLeft()
+                        }, 100)
+                        $.ajax({
+                            url: url,
+                            type: 'delete',
+                            success: function(result) {
+                                setTimeout(function(){
+                                    let data = result.data;
+                                    Swal.fire({
+                                        title: result.response.title,
+                                        text: result.response.message,
+                                        icon: result.response.icon,
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Oke'
+                                    }).then((result) => {
+                                        location.reload();
+                                    });
+                                },2000)
+                            },
+                            error: function(result) {
+                                let data = result.responseJSON
+                                Swal.fire({
+                                    icon: data.response.icon,
+                                    title: data.response.title,
+                                    text: data.response.message,
+                                });
+                            }
+                        });
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                    })
                 }
             })
         });

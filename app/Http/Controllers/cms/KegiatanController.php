@@ -5,7 +5,7 @@ namespace App\Http\Controllers\cms;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KegiatanRequest;
 use App\Interfaces\DetailKegiatanInterface;
-use App\Models\DetailKegiatanModel;
+use App\Interfaces\GServiceInterface;
 use App\Models\KegiatanModel;
 use App\Models\PegawaiModel;
 use Carbon\Carbon;
@@ -13,9 +13,10 @@ use Illuminate\Http\Request;
 
 class KegiatanController extends Controller
 {
-    public function __construct(DetailKegiatanInterface $detailKegiatanRepo)
+    public function __construct(DetailKegiatanInterface $detailKegiatanRepo, GServiceInterface $GserviceRepo)
     {
         $this->detailKegiatanRepo = $detailKegiatanRepo;
+        $this->GserviceRepo = $GserviceRepo;
     }
 
     public function getAllKegiatan()
@@ -70,25 +71,43 @@ class KegiatanController extends Controller
 
             if ($detailKegiatanId['code'] == 404 or $detailKegiatanId['code'] == 500) {
                 return $detailKegiatanId;
-            } else {
+            }
 
-                $kegiatanDetail = array(
-                    'detail_kegiatan' => $detailKegiatanId['data'],
-                    'nama_kegiatan' => $request->nama_kegiatan,
-                    'tgl_mulai' => $request->tgl_mulai,
-                    'tgl_berakhir' => $request->tgl_berakhir,
-                    'keterangan' => $request->keterangan
-                );
-                $dbResult = KegiatanModel::create($kegiatanDetail);
-                $kegiatan = array(
-                    'data' => $dbResult,
-                    'response' => array(
-                        'icon' => 'success',
-                        'title' => 'Tersimpan',
-                        'message' => 'Data berhasil disimpan',
-                    ),
-                    'code' => 201
-                );
+            $kegiatanDetail = array(
+                'detail_kegiatan' => $detailKegiatanId['data'],
+                'nama_kegiatan' => $request->nama_kegiatan,
+                'tgl_mulai' => $request->tgl_mulai,
+                'tgl_berakhir' => $request->tgl_berakhir,
+                'keterangan' => $request->keterangan
+            );
+            $dbResult = KegiatanModel::create($kegiatanDetail);
+            $kegiatan = array(
+                'data' => $dbResult,
+                'response' => array(
+                    'icon' => 'success',
+                    'title' => 'Tersimpan',
+                    'message' => 'Data berhasil disimpan',
+                ),
+                'code' => 201
+            );
+        } catch (\Throwable $th) {
+            $kegiatan = array(
+                'data' => null,
+                'response' => array(
+                    'icon' => 'error',
+                    'title' => 'Gagal',
+                    'message' => $th->getMessage(),
+                ),
+                'code' => 500
+            );
+        }
+
+        try {
+            $GService = $this->GserviceRepo->createData($request->all());
+            if ($GService['code'] == 500) {
+                return response()->json($GService, $GService['code']);
+            } else {
+                $kegiatan['data']['service_info'] = $GService;
             }
         } catch (\Throwable $th) {
             $kegiatan = array(

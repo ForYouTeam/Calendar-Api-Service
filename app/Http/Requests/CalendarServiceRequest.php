@@ -23,8 +23,6 @@ class CalendarServiceRequest extends FormRequest
             'location' => 'required',
             'status' => 'required',
             'description' => 'required',
-            'reminderOvveridesMinutes' => 'required',
-            'reminderUsedefault' => 'required',
         ];
     }
 

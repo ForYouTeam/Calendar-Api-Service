@@ -13,13 +13,11 @@ class CalendarServiceModel extends Model
         'id',
         'calendar_id',
         'sentUpdate',
-        'startDate',
-        'endDate',
+        'startDateTime',
+        'endDateTime',
         'name',
         'location',
         'status',
         'description',
-        'reminderOvveridesMinutes',
-        'reminderUsedefault',
     ];
 }
